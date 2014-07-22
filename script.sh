@@ -1,7 +1,7 @@
 passwd
 apt-get update
-apt-get upgrade
-apt-get install fail2ban
+apt-get upgrade -y
+apt-get install fail2ban -y
 echo "nom d'utilisateur :"
 read user
 useradd $user
@@ -33,12 +33,12 @@ visudo
 echo "PermitRootLogin no" >> /etc/ssh/sshd_config
 echo "PasswordAuthentication no" >> /etc/ssh/sshd_config
 service ssh restart
-apt-get install unattended-upgrades
+apt-get install unattended-upgrades -y
 echo "APT::Periodic::Update-Package-Lists "1";" >> /etc/apt/apt.conf.d/10periodic
 echo "APT::Periodic::Download-Upgradeable-Packages "1";" >> /etc/apt/apt.conf.d/10periodic
 echo "APT::Periodic::AutocleanInterval "7";" >> /etc/apt/apt.conf.d/10periodic
 echo "APT::Periodic::Unattended-Upgrade "1";" >> /etc/apt/apt.conf.d/10periodic
-apt-get install logwatch
+apt-get install logwatch -y
 echo "email pour logwatch"
 read mail
 echo "/usr/sbin/logwatch --output mail --mailto $mail --detail high" >> /etc/cron.weekly/00logwatch
