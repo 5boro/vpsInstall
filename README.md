@@ -1,7 +1,7 @@
 vpsInstall
 ==========
 
-Installations basiques et sécurisation d'une machine debian
+Installation basique et sécurisation d'une machine debian
 -----------------------------------------------------------
 
 Changement du mot de passe du SuperUtilisateur
