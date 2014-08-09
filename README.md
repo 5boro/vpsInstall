@@ -18,4 +18,4 @@ Mise en place du login par clée ssh et non-root
 
 Automatisation des mises a jour de securité  
 
-Installation de logwatch, envoi d'un mail par semaine contenant un log très détaillé a l'adresse entrée
+Installation de logwatch, envoi d'un mail par jour contenant un log très détaillé a l'adresse entrée
