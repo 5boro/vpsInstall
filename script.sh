@@ -26,7 +26,7 @@ chown $user:$user /home/$user -R
 echo "........................................."
 echo "Commenter les lignes existantes et coller ceci a la place :"
 echo "root    ALL=(ALL) ALL"
-echo "$user  ALL=(ALL) ALL"
+echo "$user   ALL=(ALL) ALL"
 echo "........................................."
 read ok
 visudo
@@ -41,4 +41,10 @@ echo "APT::Periodic::Unattended-Upgrade "1";" >> /etc/apt/apt.conf.d/10periodic
 apt-get install logwatch -y
 echo "email pour logwatch"
 read mail
-echo "/usr/sbin/logwatch --output mail --mailto $mail --detail high" >> /etc/cron.weekly/00logwatch
+echo "#!/bin/bash
+
+#Check if removed-but-not-purged
+test -x /usr/share/logwatch/scripts/logwatch.pl || exit 0
+
+#execute
+/usr/sbin/logwatch --output mail --mailto $mail --detail high" > /etc/cron.daily/00logwatch
