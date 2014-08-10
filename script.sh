@@ -41,10 +41,12 @@ echo "APT::Periodic::Unattended-Upgrade "1";" >> /etc/apt/apt.conf.d/10periodic
 apt-get install logwatch -y
 echo "email pour logwatch"
 read mail
+echo "'daily' pour un rapport journalier, 'weekly' hebdomadaire ou 'monthly' mensuel (sans '')"
+read frequence
 echo "#!/bin/bash
 
 #Check if removed-but-not-purged
 test -x /usr/share/logwatch/scripts/logwatch.pl || exit 0
 
 #execute
-/usr/sbin/logwatch --output mail --mailto $mail --detail high" > /etc/cron.daily/00logwatch
+/usr/sbin/logwatch --output mail --mailto $mail --detail high" > /etc/cron.$frequence/00logwatch
