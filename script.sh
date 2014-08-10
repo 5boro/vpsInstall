@@ -1,8 +1,9 @@
+echo "Changement du mot de passe"
 passwd
 apt-get update
 apt-get upgrade -y
 apt-get install fail2ban -y
-echo "nom d'utilisateur :"
+echo "Nom d'utilisateur à ajouter:"
 read user
 useradd $user
 passwd $user
@@ -12,22 +13,21 @@ chmod 700 /home/$user/.ssh
 test=0
 while [ $test = 0 ]
 do
-  echo "clee ssh :"
+  echo "Coller la clee ssh puis enter:"
   read key
   echo $key >> /home/$user/.ssh/authorized_keys
   echo "........................................."
   cat /home/$user/.ssh/authorized_keys
   echo "........................................."
-  echo "ok(0=non)"
+  echo "ok?(0=non)"
   read test
 done
 chmod 400 /home/$user/.ssh/authorized_keys
 chown $user:$user /home/$user -R
-echo "........................................."
-echo "Commenter les lignes existantes et coller ceci a la place :"
-echo "root    ALL=(ALL) ALL"
-echo "$user   ALL=(ALL) ALL"
-echo "........................................."
+echo ".........................................
+Ajouter '$user   ALL=(ALL) ALL' sous 'root    ALL=(ALL) ALL'
+(fonctionnement de vi: 'i' pour editer 'echap : wq' pour enregistrer et quitter)
+........................................."
 read ok
 visudo
 echo "PermitRootLogin no" >> /etc/ssh/sshd_config
@@ -44,9 +44,5 @@ read mail
 echo "'daily' pour un rapport journalier, 'weekly' hebdomadaire ou 'monthly' mensuel (sans '')"
 read frequence
 echo "#!/bin/bash
-
-#Check if removed-but-not-purged
 test -x /usr/share/logwatch/scripts/logwatch.pl || exit 0
-
-#execute
 /usr/sbin/logwatch --output mail --mailto $mail --detail high" > /etc/cron.$frequence/00logwatch
