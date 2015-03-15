@@ -5,7 +5,7 @@ apt-get upgrade -y
 apt-get install fail2ban -y
 echo "Nom d'utilisateur à ajouter:"
 read user
-useradd $user
+useradd $user -D
 passwd $user
 mkdir /home/$user
 mkdir /home/$user/.ssh
