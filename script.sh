@@ -1,11 +1,11 @@
-echo "Changement du mot de passe"
+echo "Changement du mot de passe :"
 passwd
 apt-get update
 apt-get upgrade -y
 apt-get install fail2ban -y
-echo "Nom d'utilisateur à ajouter:"
+echo "Nom d'utilisateur à ajouter :"
 read user
-useradd -D $user
+useradd -m -d /home/$user -s /bin/bash $user
 passwd $user
 mkdir /home/$user
 mkdir /home/$user/.ssh
@@ -13,7 +13,7 @@ chmod 700 /home/$user/.ssh
 test=0
 while [ $test = 0 ]
 do
-  echo "Coller la clee ssh puis enter:"
+  echo "Clee ssh :"
   read key
   echo $key >> /home/$user/.ssh/authorized_keys
   echo "........................................."
@@ -26,7 +26,7 @@ chmod 400 /home/$user/.ssh/authorized_keys
 chown $user:$user /home/$user -R
 echo ".........................................
 Ajouter '$user   ALL=(ALL) ALL' sous 'root    ALL=(ALL) ALL'
-(fonctionnement de vi: 'i' pour editer 'echap : wq' pour enregistrer et quitter)
+(fonctionnement de vi: 'i' pour editer 'echap : x' pour enregistrer et quitter)
 ........................................."
 read ok
 visudo
@@ -39,9 +39,9 @@ echo "APT::Periodic::Download-Upgradeable-Packages "1";" >> /etc/apt/apt.conf.d/
 echo "APT::Periodic::AutocleanInterval "7";" >> /etc/apt/apt.conf.d/10periodic
 echo "APT::Periodic::Unattended-Upgrade "1";" >> /etc/apt/apt.conf.d/10periodic
 apt-get install logwatch -y
-echo "email pour logwatch"
+echo "Email pour logwatch :"
 read mail
-echo "'daily' pour un rapport journalier, 'weekly' hebdomadaire ou 'monthly' mensuel (sans '')"
+echo "'daily' pour un rapport journalier, 'weekly' hebdomadaire ou 'monthly' mensuel (sans ') :"
 read frequence
 echo "#!/bin/bash
 test -x /usr/share/logwatch/scripts/logwatch.pl || exit 0
